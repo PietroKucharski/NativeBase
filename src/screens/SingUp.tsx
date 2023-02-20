@@ -1,10 +1,11 @@
 import * as yup from 'yup'
-import { Center, Heading, Icon, NativeBaseProvider, VStack } from "native-base";
+import React from 'react';
+import { Center, Heading, Icon, Image, NativeBaseProvider, Pressable, VStack } from "native-base";
 import { Button } from "../components/Button";
 import  { Input } from '../components/Input';
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
-import { User, Envelope, Key, SignIn } from 'phosphor-react-native'
+import { User, Envelope, Key, SignIn, Eye, EyeSlash } from 'phosphor-react-native'
 
 type FormDataProps = {
     name: string
@@ -23,6 +24,9 @@ const signUpSchema = yup.object({
 
 export default function SingUp() {
     const { control, handleSubmit, formState: {errors} } = useForm<FormDataProps>({ resolver: yupResolver(signUpSchema) });
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+    const img = require('../../images/LogoKrah.png');
 
     function handelSingUp(data: FormDataProps) {
         console.log(data)
@@ -32,8 +36,9 @@ export default function SingUp() {
     <NativeBaseProvider>
         <VStack flex={1} px={5}>
             <Center h='full'>
-
-                <Heading my={24}>
+                
+                <Image alt='Logo Krah' source={img} size={150}/>
+                <Heading mb={'50px'} mt={'50px'}>
                     Crie sua conta
                 </Heading>
 
@@ -56,20 +61,27 @@ export default function SingUp() {
                 <Controller control={control}
                     name='password'
                     render={({ field : { onChange }}) => (
-                        <Input placeholder="Senha" secureTextEntry onChangeText={onChange} errorMessage={errors.password?.message}
-                        InputLeftElement={<Icon as={<Key/>} size={16} ml='2' color="muted.400"/>}/>
+                        <Input placeholder="Senha" onChangeText={onChange} errorMessage={errors.password?.message}
+                        InputLeftElement={<Icon as={<Key/>} size={16} ml='2' color="muted.400"/>} type={showPassword ? 'text' : 'password'}
+                        InputRightElement={<Pressable onPress={() => setShowPassword(!showPassword)}>
+                            <Icon as={showPassword ? <Eye/> : <EyeSlash/>} size={16} mr='3' color='muted.400'/> 
+                        </Pressable>}/>
                     )}
                 />
 
                 <Controller control={control}
                     name='confirm_password'
                     render={({ field : { onChange }}) => (
-                        <Input placeholder="Confirme sua senha" secureTextEntry onChangeText={onChange}errorMessage={errors.confirm_password?.message}
-                        InputLeftElement={<Icon as={<Key/>} size={16} ml='2' color="muted.400"/>}/>
+                        <Input placeholder="Confirme sua senha" onChangeText={onChange}errorMessage={errors.confirm_password?.message}
+                        InputLeftElement={<Icon as={<Key/>} size={16} ml='2' color="muted.400"/>}  type={showConfirmPassword ? 'text' : 'password'}
+                        InputRightElement={<Pressable onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+                            <Icon as={showConfirmPassword ? <Eye/> : <EyeSlash/>} size={16} mr='3' color='muted.400'/>
+                        </Pressable>}/>
                     )}
                 />
 
-                <Button title="Cadastrar" onPress={handleSubmit(handelSingUp)} leftIcon={<Icon as={<SignIn/>} size={16} color="muted.400"/>}/>
+                <Button title="Cadastrar" onPress={handleSubmit(handelSingUp)}
+                leftIcon={<Icon as={<SignIn/>} size={16} color="muted.400"/>}/>
             </Center>
         </VStack>
     </NativeBaseProvider>
