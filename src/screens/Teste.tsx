@@ -1,35 +1,29 @@
 
-import { Center, NativeBaseProvider, VStack, ScrollView, Heading, Checkbox } from "native-base";
-import { Button } from "../components/Button";
-
+import { Center, NativeBaseProvider, VStack, ScrollView, Heading, Checkbox } from "native-base"
 import { LinearGradient } from 'expo-linear-gradient';
+
 import React from "react";
+import { Menu } from "../components/Menu";
+import { AppBar } from "../components/AppBar";
 
 
 export default function Teste() {
     const [groupValues, setGroupValues] = React.useState([]);
 
   return (
-    <NativeBaseProvider>
-        <LinearGradient colors={['#ffffff', '#ffffff', '#ffffff']} style={{flex: 1}}>
-            <Center>
-                <Heading mt={'50px'} mb={'20px'}>Teste</Heading>
-            </Center>
-            <ScrollView bg={'blue.100'}>
-                
-                <VStack flex={1} px={5}>
-                    <Center>
-                    <Checkbox.Group onChange={setGroupValues} value={groupValues} accessibilityLabel="choose numbers">
-                    <Checkbox value="one" my={2}>
-                        UX Research
-                    </Checkbox>
-                    <Checkbox value="two">Software Development</Checkbox>
-                    </Checkbox.Group>
-                    </Center>
-                </VStack>
+    <LinearGradient colors={['#ffffff', '#ffffff', '#ffffff']} style={{flex: 1, width: "100%"}}> 
+        <Center flexDirection={"row"}>
+            <Heading mt={'50px'} mb={'20px'}>Testes</Heading>
+        </Center>
+        <ScrollView>
+            
+            <VStack flex={1} px={5}>
+                <Center>
+                    <AppBar title={"Home"} />
+                </Center>
+            </VStack>
 
-            </ScrollView>
-        </LinearGradient>
-    </NativeBaseProvider>
+        </ScrollView>
+    </LinearGradient>
   );
 }
