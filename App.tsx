@@ -1,14 +1,15 @@
-import { NativeBaseProvider } from "native-base";
-import DashboardAdmin from "./src/screens/DashboardAdmin";
-import SingIn from "./src/screens/SingIn";
+import { NativeBaseProvider, extendTheme } from "native-base";
+// import DashboardAdmin from "./src/screens/DashboardAdmin";
 import SingUp from "./src/screens/SingUp";
-import Teste from "./src/screens/Teste";
+import AppContainer from "./src/components/App-container";
+import MainScreen from "./src/screens/MainScreen";
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <Teste/>
-    </NativeBaseProvider>
-    
+    <AppContainer>
+      <NativeBaseProvider>
+        <MainScreen/>
+      </NativeBaseProvider>
+    </AppContainer>
   );
 }
